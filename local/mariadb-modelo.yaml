@@ -1,0 +1,37 @@
+#helm show values oci://registry-1.docker.io/bitnamicharts/mariadb > mariadb-helm-deafault-values.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mariadb
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'oci://registry-1.docker.io/bitnamicharts/mariadb'
+    targetRevision: 21.0.7
+    chart: mariadb    
+    helm:
+      values: |
+        # Especifique a versão do MariaDB usando a tag da imagem
+        image:
+          tag: 11.2.3
+          
+        ## @param architecture MariaDB architecture (`standalone` or `replication`)
+        architecture: "standalone"
+
+        auth:
+          database: uappi-modelo        
+          user: "user"
+          rootPassword: "newRootPassword123"
+          password: "newUserPassword123"
+          replicationPassword: "newReplicationPassword123"
+
+        passwordUpdateJob:
+          enabled: false          
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: local-uappi
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
