@@ -28,3 +28,17 @@ spec:
           value: "sua-string-de-conexao-com-o-banco"
         - name: PORT
           value: "80"
+        volumeMounts:
+        - name: php-config
+          mountPath: /etc/php/7.4/apache2/php.ini
+          subPath: php.ini
+        - name: php-config
+          mountPath: /etc/php/7.4/cli/php.ini
+          subPath: php.ini
+        - name: php-config
+          mountPath: /etc/php/7.4/fpm/php.ini
+          subPath: php.ini
+      volumes:
+      - name: php-config
+        secret:
+          secretName: php-config
