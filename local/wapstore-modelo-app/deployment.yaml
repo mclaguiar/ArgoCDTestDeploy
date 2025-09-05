@@ -43,7 +43,7 @@ spec:
               command:
               - "/bin/sh"
               - "-c"
-              - "mkdir -p /var/www/html/modelo && cp /tmp/db-config/db.php /var/www/html/modelo/db.php"
+              - "ls -l /tmp/db-config"
       volumes:
       - name: php-ini
         secret:
