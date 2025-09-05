@@ -10,6 +10,12 @@ spec:
       app: wapstore
   template:
     metadata:
+      annotations:
+        # A alteração nesta anotação fará com que o Kubernetes reinicie os pods.
+        # Você deve atualizar o valor desta anotação (ex: para um novo checksum dos secrets)
+        # toda vez que alterar o 'secret-db-php.yaml' ou 'secret-php-config.yaml'
+        # para forçar o reinício da aplicação.
+        checksum/config: "initial-checksum"
       labels:
         app: wapstore
     spec:
