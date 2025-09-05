@@ -29,16 +29,16 @@ spec:
         - name: PORT
           value: "80"
         volumeMounts:
-        - name: php-config
+        - name: php-ini
           mountPath: /etc/php/7.4/apache2/php.ini
           subPath: php.ini
-        - name: php-config
+        - name: php-ini
           mountPath: /etc/php/7.4/cli/php.ini
           subPath: php.ini
-        - name: php-config
+        - name: php-ini
           mountPath: /etc/php/7.4/fpm/php.ini
           subPath: php.ini
       volumes:
-      - name: php-config
+      - name: php-ini
         secret:
-          secretName: php-config
+          secretName: wapstore-modelo-php-config
