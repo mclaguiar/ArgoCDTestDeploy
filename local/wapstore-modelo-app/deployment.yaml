@@ -18,7 +18,7 @@ spec:
         image: wapstore:latest
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 8080 # Porta que sua aplicação expõe dentro do container
+        - containerPort: 80 # Porta que sua aplicação expõe dentro do container
         env:
         - name: DATABASE_URL
           value: "sua-string-de-conexao-com-o-banco"
@@ -35,7 +35,6 @@ spec:
           mountPath: /etc/php/7.4/fpm/php.ini
           subPath: php.ini
         - name: db-config
-          #mountPath: /tmp/db-config/db.php
           mountPath: /var/www/html/modelo/db.php
           subPath: db.php
         lifecycle:
