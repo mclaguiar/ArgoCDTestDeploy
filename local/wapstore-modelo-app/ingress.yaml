@@ -1,0 +1,26 @@
+#apiVersion: networking.k8s.io/v1
+#kind: Ingress
+#metadata:
+#  name: wapstore-ingress
+#  annotations:
+#    # Anotação para o cert-manager usar um ClusterIssuer chamado 'letsencrypt-prod'
+#    # Você precisa ter um ClusterIssuer configurado no seu cluster.
+#    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+#    # Anotação para especificar a classe do Ingress Controller (ex: nginx)
+#    kubernetes.io/ingress.class: "nginx"
+#spec:
+#  tls:
+#  - hosts:
+#    - wapstore.seusite.com # Substitua pelo seu domínio real
+#    secretName: wapstore-tls-secret # O cert-manager criará este Secret com o certificado
+#  rules:
+#  - host: wapstore.seusite.com # Substitua pelo seu domínio real
+#    http:
+#      paths:
+#      - path: /
+#        pathType: Prefix
+#        backend:
+#          service:
+#            name: wapstore-service
+#            port:
+#              number: 80

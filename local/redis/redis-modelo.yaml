@@ -1,0 +1,30 @@
+# helm show values oci://registry-1.docker.io/bitnamicharts/redis > redis-helm-default-values.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: redis
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'oci://registry-1.docker.io/bitnamicharts/redis'
+    targetRevision: 22.0.7
+    chart: redis
+    helm:
+      values: |
+        # For persistence, you might want to enable it and configure it.
+        # persistence:
+        #   enabled: true
+        #   storageClass: "your-storage-class"
+        #   size: 8Gi
+
+        auth:
+          password: "newRedisPassword123"
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: local-uappi
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

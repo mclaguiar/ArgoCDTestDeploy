@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  # O nome da sua aplicação no ArgoCD
+  name: wapstore-app
+  # Aplicações do ArgoCD devem ser criadas no namespace 'argocd'
+  namespace: argocd
+spec:
+  project: default
+  source:
+    # Substitua pela URL do seu repositório Git onde os arquivos acima estarão
+    repoURL: https://github.com/seu-usuario/seu-repositorio.git
+    # O caminho para a pasta que contém os manifestos da sua aplicação
+    path: wapstore-app
+    # A branch ou tag a ser monitorada
+    targetRevision: HEAD
+  destination:
+    # O endereço do cluster Kubernetes (padrão para o mesmo cluster onde o ArgoCD está)
+    server: https://kubernetes.default.svc
+    # O namespace onde sua aplicação será deployada
+    namespace: wapstore-prod
+  syncPolicy:
+    automated:
+      # Permite que o ArgoCD apague recursos que foram removidos do Git
+      prune: true
+      # Permite que o ArgoCD reverta para o estado do Git se houver desvios
+      selfHeal: true
+    syncOptions:
+      # Cria o namespace de destino ('wapstore-prod') se ele não existir
+      - CreateNamespace=true

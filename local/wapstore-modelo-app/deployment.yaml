@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wapstore-modelo-deployment
+  namespace: local-uappi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wapstore
+  template:
+    metadata:
+      labels:
+        app: wapstore
+    spec:
+      containers:
+      - name: wapstore
+        # IMPORTANTE: Substitua 'wapstore:latest' pelo caminho completo da sua imagem se ela estiver em um registry (ex: seuregistry.io/wapstore:1.0.0)
+        # Se a imagem for realmente apenas local, o seu cluster Kubernetes precisa ter acesso a ela.
+        image: wapstore:latest
+        # Para desenvolvimento local (Minikube, Kind), 'IfNotPresent' permite usar imagens locais.
+        # Para produção, mude para 'Always' para garantir que a imagem seja sempre baixada do registry.
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080 # Porta que sua aplicação expõe dentro do container
+        env:
+        - name: DATABASE_URL
+          value: "sua-string-de-conexao-com-o-banco"
+        - name: PORT
+          value: "80"

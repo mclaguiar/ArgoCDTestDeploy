@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: wapstore-modelo-service
+  namespace: local-uappi
+spec:
+  selector:
+    app: wapstore # Deve ser o mesmo label dos pods no Deployment
+  ports:
+    - protocol: TCP
+      port: 8080 # Porta que o Service expõe
+      targetPort: 80 # Porta do container (deve ser a mesma do deployment.yaml)
+  type: ClusterIP
