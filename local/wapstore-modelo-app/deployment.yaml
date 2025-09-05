@@ -18,7 +18,7 @@ spec:
         image: wapstore:latest
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 8080
+        - containerPort: 80
         env:
         - name: DATABASE_URL
           value: "sua-string-de-conexao-com-o-banco"
