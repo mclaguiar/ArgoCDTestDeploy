@@ -15,11 +15,7 @@ spec:
     spec:
       containers:
       - name: wapstore
-        # IMPORTANTE: Substitua 'wapstore:latest' pelo caminho completo da sua imagem se ela estiver em um registry (ex: seuregistry.io/wapstore:1.0.0)
-        # Se a imagem for realmente apenas local, o seu cluster Kubernetes precisa ter acesso a ela.
         image: wapstore:latest
-        # Para desenvolvimento local (Minikube, Kind), 'IfNotPresent' permite usar imagens locais.
-        # Para produção, mude para 'Always' para garantir que a imagem seja sempre baixada do registry.
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080 # Porta que sua aplicação expõe dentro do container
@@ -38,7 +34,14 @@ spec:
         - name: php-ini
           mountPath: /etc/php/7.4/fpm/php.ini
           subPath: php.ini
+        - name: db-config
+          mountPath: /var/www/html/modelo/db.php
+          subPath: db.php
       volumes:
       - name: php-ini
         secret:
           secretName: wapstore-modelo-php-config
+      - name: db-config
+        secret:
+          secretName: wapstore-modelo-db-config
+
