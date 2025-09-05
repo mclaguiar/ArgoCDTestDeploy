@@ -35,15 +35,16 @@ spec:
           mountPath: /etc/php/7.4/fpm/php.ini
           subPath: php.ini
         - name: db-config
-          mountPath: /tmp/db-config
-          readOnly: true
+          #mountPath: /tmp/db-config/db.php
+          mountPath: /var/www/html/modelo/db.php
+          subPath: db.php
         lifecycle:
-          postStart:
-            exec:
-              command:
-              - "/bin/sh"
-              - "-c"
-              - "ls -l /tmp/db-config"
+          #postStart:
+            #exec:
+              #command:
+              #- "/bin/sh"
+              #- "-c"
+              #- "cp /tmp/db-config/db.php /var/www/html/modelo/db.php"
       volumes:
       - name: php-ini
         secret:
